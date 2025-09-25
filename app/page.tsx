@@ -1,11 +1,11 @@
-import { Button } from "@/components/ui/button"
-import { RaffleCard } from "@/components/raffle-card"
-import { getMockRaffles } from "@/lib/mock-data"
-import { Heart, Users, Trophy } from "lucide-react"
-import Link from "next/link"
+﻿import { Button } from "@/components/ui/button";
+import { RaffleCard } from "@/components/raffle-card";
+import { fetchActiveRaffles } from "@/lib/api";
+import { Heart, Users, Trophy } from "lucide-react";
+import Link from "next/link";
 
 export default async function HomePage() {
-  const raffles = await getMockRaffles()
+  const raffles = await fetchActiveRaffles();
 
   return (
     <div className="min-h-screen bg-background">
@@ -170,5 +170,5 @@ export default async function HomePage() {
         </div>
       </footer>
     </div>
-  )
+  );
 }

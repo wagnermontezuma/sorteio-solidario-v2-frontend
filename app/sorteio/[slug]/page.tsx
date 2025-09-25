@@ -1,23 +1,23 @@
-import { notFound } from "next/navigation"
-import { getMockRaffleBySlug } from "@/lib/mock-data"
-import { RaffleGallery } from "@/components/raffle-gallery"
-import { RaffleInfo } from "@/components/raffle-info"
-import { PurchaseForm } from "@/components/purchase-form"
-import { Button } from "@/components/ui/button"
-import { ArrowLeft } from "lucide-react"
-import Link from "next/link"
+﻿import { notFound } from "next/navigation";
+import { fetchRaffleBySlug } from "@/lib/api";
+import { RaffleGallery } from "@/components/raffle-gallery";
+import { RaffleInfo } from "@/components/raffle-info";
+import { PurchaseForm } from "@/components/purchase-form";
+import { Button } from "@/components/ui/button";
+import { ArrowLeft } from "lucide-react";
+import Link from "next/link";
 
 interface RafflePageProps {
   params: {
-    slug: string
-  }
+    slug: string;
+  };
 }
 
 export default async function RafflePage({ params }: RafflePageProps) {
-  const raffle = await getMockRaffleBySlug(params.slug)
+  const raffle = await fetchRaffleBySlug(params.slug);
 
   if (!raffle) {
-    notFound()
+    notFound();
   }
 
   return (
@@ -54,20 +54,20 @@ export default async function RafflePage({ params }: RafflePageProps) {
         </div>
       </main>
     </div>
-  )
+  );
 }
 
 export async function generateMetadata({ params }: RafflePageProps) {
-  const raffle = await getMockRaffleBySlug(params.slug)
+  const raffle = await fetchRaffleBySlug(params.slug);
 
   if (!raffle) {
     return {
       title: "Sorteio não encontrado",
-    }
+    };
   }
 
   return {
     title: `${raffle.title} - Sorteio Solidário`,
-    description: raffle.description,
-  }
+    description: raffle.description ?? undefined,
+  };
 }
